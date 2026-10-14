@@ -1,0 +1,57 @@
+Tue Oct 13 16:47:55 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 16:48:41 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 16:52:41 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 16:55:30 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 17:01:09 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 17:01:24 2026
+ERROR: gladLoadGL error
+
+Tue Oct 13 17:02:25 2026
+ERROR: gladLoadGL error
+
+Wed Oct 14 07:08:24 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.8220.
+
+Wed Oct 14 07:08:32 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 1.0820.
+
+Wed Oct 14 07:12:32 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.9620.
+
+Wed Oct 14 07:12:46 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 2.4720.
+
+Wed Oct 14 07:18:21 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.7460.
+
+Wed Oct 14 07:23:41 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.7440.
+
+Wed Oct 14 08:46:33 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.2820.
+
+Wed Oct 14 09:27:04 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.4650.
+
+Wed Oct 14 09:27:34 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 0. The simulation is unstable. Time = 0.5450.
+
+Wed Oct 14 10:53:22 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 1. The simulation is unstable. Time = 3.0000.
+
+Wed Oct 14 10:53:33 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 3. The simulation is unstable. Time = 0.4000.
+
+Wed Oct 14 10:53:50 2026
+WARNING: Nan, Inf or huge value in QACC at DOF 2. The simulation is unstable. Time = 0.3900.
+

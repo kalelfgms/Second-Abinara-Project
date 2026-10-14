@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.cpp
+iostream
+-
+mujoco/mujoco.h
+-
+GLFW/glfw3.h
+-
+cstdio
+-
+string
+-
+vector
+-
+algorithm
+-
+
