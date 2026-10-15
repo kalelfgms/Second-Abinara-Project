@@ -5,40 +5,57 @@
     timestep="0.025"
     />
 
+    <asset>
+        <material name="light_gray" rgba="0.75 0.75 0.75 1" specular="0.5"/>
+        <material name="dark_gray" rgba="0.6 0.6 0.6 1" specular="0.5"/>
+    </asset>
+
+    <default>
+        <default class="arm_section">
+            <geom type="box" size=".02 .01 .12" mass="0.5" pos="0 0 0.12" material="light_gray" contype="0" conaffinity="0"/>
+        </default>
+        <default class="joint_cylinder">
+            <geom type="cylinder" size="0.04 0.016" mass="0.5" pos="0 0 0" euler="90 0 0" material="dark_gray"/>
+        </default>
+        <default class="arm_joint">
+            <joint type="hinge" pos="0 0 0" axis="0 -1 0" range="-120 120"/>
+        </default>
+    </default>
+
     <worldbody>
         <light pos="0 0 2" dir="0 0 -1"/>
-        <geom type="plane" size="1 1 0.1" rgba="0.9 0.9 0.9 1"/>
+        <geom type="plane" size="1.5 1.5 0.5" rgba="0.9 0.9 0.9 1"/>
 
         <body name="baselink" pos="0 0 0.05">
-            <geom type="box" size=".1 .1 .05" rgba="0.75 0.75 0.75 1"/>
+            <geom type="box" size=".1 .1 .05" material="light_gray"/>
 
             <!-- torso, yaw -->
             <body name="torso" pos="0 0 0.05">
                 <joint name="torso_bodylink" type="hinge" pos="0 0 0" axis="0 0 1" range="-180 180"/>
-                <geom type="box" size=".03 .015 .06" pos="0 0 0.06" rgba="0.75 0.75 0.75 1"/>
-                <geom type="cylinder" size = "0.06 0.02" pos="0 0 0" rgba="0.6 0.6 0.6 1"/>
+                <geom type="box" size=".03 .015 .06" pos="0 0 0.06" material="light_gray"/>
+                <geom type="cylinder" size = "0.06 0.03" pos="0 0 0" material="dark_gray"/>
                 
-                <!-- shoulder, pitch -->
+                <!-- shoulder, pitch (expand distance between arm rects so it wont spaz out at 0 0 0)-->
                 <body name="shoulder" pos="0 0 0.12">
-                    <joint name="shoulder_link" type="hinge" pos="0 0 0" axis="0 -1 0" range="-120 120"/>
-                    <geom type="box" size=".02 .01 .12" pos="0 0 0.12" rgba="0.75 0.75 0.75 1"/>
-                    <geom type="cylinder" size="0.04 0.016" mass="0.5" pos="0 0 0" euler="90 0 0" rgba="0.6 0.6 0.6 1"/>
+                    <joint name="shoulder_link" class="arm_joint"/>
+                    <geom class="arm_section"/>
+                    <geom class="joint_cylinder"/>
                     
                     <!-- upper arm, pitch -->
                     <body name="upper_arm" pos="0 0 0.24">
-                        <joint name="upper_arm_link" type="hinge" pos="0 0 0" axis="0 -1 0" range="-120 120"/>
-                        <geom type="box" size=".02 .01 .12" mass="0.5" pos="0 0 0.12" rgba="0.75 0.75 0.75 1" contype="0" conaffinity="0"/>
-                        <geom type="cylinder" size="0.04 0.016" mass="0.5" pos="0 0 0" euler="90 0 0" rgba="0.6 0.6 0.6 1"/>
+                        <joint name="upper_arm_link" class="arm_joint"/>
+                        <geom class="arm_section"/>
+                        <geom class="joint_cylinder"/>
 
                         <!-- forearm, pitch -->
                         <body name="forearm" pos="0 0 0.24">
-                            <joint name="forearm_link" type="hinge" pos="0 0 0" axis="0 -1 0" range="-120 120"/>
-                            <geom type="box" size=".02 .01 .12" mass="0.5" pos="0 0 0.12" rgba="0.75 0.75 0.75 1" contype="0" conaffinity="0"/>
-                            <geom type="cylinder" size="0.04 0.016" mass="0.5" pos="0 0 0" euler="90 0 0" rgba="0.6 0.6 0.6 1"/>
+                            <joint name="forearm_link" class="arm_joint"/>
+                            <geom class="arm_section"/>
+                            <geom class="joint_cylinder"/>
 
                             <!-- claw, yaw? -->
                             <body name="hand" pos="0 0 0.24">
-                                <geom type="sphere" size="0.05" mass="0.5" pos="0 0 0" rgba="0.6 0.6 0.6 1"/>
+                                <geom type="sphere" size="0.05" mass="0.5" pos="0 0 0" material="dark_gray"/>
                             </body>
                         </body>
                     </body>
