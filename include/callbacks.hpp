@@ -47,7 +47,6 @@ static void scroll_callback(GLFWwindow* window, double /*xoffset*/, double yoffs
     mjv_moveCamera(m, mjMOUSE_ZOOM, 0, -0.05 * yoffset, &scn, &cam);
 }
 
-//cant get mjdata to keyboard callback
 void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int mods){
     if (act != GLFW_PRESS) return;
 
@@ -75,20 +74,11 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int m
             moveJoint(3, 1); cout<<"forearm yaw: " << d->ctrl[3] << endl; break;
 
         //posing
-        //startpos/reset
-        case GLFW_KEY_SPACE:
-            cout<<"resetting position"<<endl;
-            setPose(Pose::Ready); break;
-        case GLFW_KEY_C:
-            cout<<"zigi zaga"<<endl;
-            setPose(Pose::ZigZag); break;
-        case GLFW_KEY_V:
-            cout<<"set 0"<<endl;
-            setPose(Pose::Zero); // ts or mj_resetData, tp itu perlu  m sama d
+        default:
+            for (auto& p : PoseList) {
+                if (key == p->getKey()) playPose(*p);
+            };
             break;
-        case GLFW_KEY_B:
-            cout<<"max length"<<endl;
-            setPose(Pose::MaxLength); break;
     }
 }
 

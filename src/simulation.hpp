@@ -1,5 +1,13 @@
 #pragma once
 #include <mujoco/mujoco.h>
+#include <vector>
+#include <array>
+#include <string>
+#include <memory>
+
+using namespace std;
+
+typedef array<double, 4> pList;
 
 mjModel* m = nullptr;
 mjData* d = nullptr;

@@ -31,6 +31,13 @@ Robot arm ini memiliki 4 joint:
 
 #### Poses
 
+Pose bisa dibuat dengan function addPose() dalam main() dengan syntax:
+```
+addPose(PoseList, "Name", GLFW_KEY_(key), pList{int, int, int, int});
+```
+
+Pose yang sudah dibuat:
+
 | Pose | Key |
 | :--- | :---: |
 | Default Pose | Space |

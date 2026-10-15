@@ -6,11 +6,15 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
-using namespace std;
-
+#include "../include/controls.hpp"
 #include "../include/callbacks.hpp"
 #include "simulation.hpp"
+
+void addPose(vector<unique_ptr<Pose>>& PoseList, string n, int k, pList ori) {
+    PoseList.push_back(make_unique<Pose>(n, k, ori));
+}
 
 int main(){
     char error[1000] = "Couldn't load model";
@@ -34,9 +38,6 @@ int main(){
     }
     glfwMakeContextCurrent(window);
 
-    opt.flags[mjVIS_CONTACTPOINT] = 1;
-    opt.flags[mjVIS_CONTACTFORCE] = 1;
-
     //callbacks
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetCursorPosCallback(window, cursor_pos_callback);
@@ -44,7 +45,6 @@ int main(){
     glfwSetKeyCallback(window, keyboard_callback);
     
     //scene setup
-    mjv_defaultCamera(&cam);
     mjv_defaultOption(&opt);
     mjv_defaultScene(&scn);
     mjr_defaultContext(&con);
@@ -53,13 +53,24 @@ int main(){
     mjr_makeContext(m, &con, mjFONTSCALE_100);
 
     //cam setup
+    mjv_defaultCamera(&cam);
+    cam.lookat[0] = 0.0;
+    cam.lookat[1] = 0.0;
+    cam.lookat[2] = 0.2;    
     cam.orthographic = 1;
     cam.distance = 1.8;
     cam.azimuth = 45;
     cam.elevation = -25;
 
+    //create poses
+    addPose(PoseList, "Default", GLFW_KEY_SPACE, pList{0, -1, 2, 1.5});
+    addPose(PoseList, "ZigZag", GLFW_KEY_C, {0, -1, 2, -2});
+    addPose(PoseList, "Zero", GLFW_KEY_V, {0, 0.05, -0.05, 0.05});
+    addPose(PoseList, "MaxLength", GLFW_KEY_B, {0, -1.5, -1, 1});
+    //harus inget index tiap pose Class di file lain... kalo mau manually set position sih
+
     //starting pose
-    setPose(Pose::Ready);
+    playPose(*PoseList[0]);
 
     //sim loop
     while (!glfwWindowShouldClose(window)){
