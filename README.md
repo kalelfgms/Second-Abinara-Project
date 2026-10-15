@@ -15,10 +15,11 @@ Program dibagi jadi beberapa file utama:
 Robot arm ini memiliki 4 joint: 
 | Joint | Axis | Connection | Range |
 | :--- | :--- | :--- | :---: |
-| Torso | Z (Yaw) | Base to Torso | -360° to 360° |
+| Torso | Z (Yaw) | Base to Torso | -180 to 180 |
 | Shoulder | Y (Pitch) | Torso to Shoulder | -120° to 120° |
 | Upper arm | Y (Pitch) | Shoulder to Upper arm | -120° to 120° |
 | Forearm | Y (Pitch) | Upper arm to Forearm | -120° to 120° |
+| Hand | Z (Yaw) | Forearm to Hand | -180 to 180 |
 
 ### Key Binds
 #### Joints
@@ -28,6 +29,7 @@ Robot arm ini memiliki 4 joint:
 | Shoulder | Z | X |
 | Upper Arm | A | S |
 | Forearm | Q | W |
+| Hand | J | K |
 
 #### Poses
 
