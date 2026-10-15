@@ -54,9 +54,7 @@ int main(){
 
     //cam setup
     mjv_defaultCamera(&cam);
-    cam.lookat[0] = 0.0;
-    cam.lookat[1] = 0.0;
-    cam.lookat[2] = 0.2;    
+    cam.lookat[2] = 0.2; // cam origin up sdikit
     cam.orthographic = 1;
     cam.distance = 1.8;
     cam.azimuth = 45;

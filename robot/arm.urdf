@@ -1,24 +1,36 @@
 <robot name="arm">
-    <material name="light_gray"><color rgba="0.75 0.75 0.75 1"/></material>
-    <material name="dark_gray"><color rgba="0.6 0.6 0.6 1"/></material>
+
+    <material name="light_gray">
+        <color rgba="0.75 0.75 0.75 1"/>
+    </material>
+    <material name="dark_gray">
+        <color rgba="0.6 0.6 0.6 1"/>
+    </material>
 
     <link name="world"/>
+
     <joint name="world_to_baselink" type="fixed">
         <parent link="world"/>
         <child link="baselink"/>
         <origin xyz="0 0 0.05" rpy="0 0 0"/>
     </joint>
 
-    <!-- base -->
+    <!-- base link -->
     <link name="baselink">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="4.0"/>
+            <inertia ixx="0.016" ixy="0" ixz="0" iyy="0.016" iyz="0" izz="0.026"/>
+        </inertial>
         <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry><box size="0.2 0.2 0.1"/></geometry>
             <material name="light_gray"/>
         </visual>
-        <inertial>
-            <mass value="4.0"/>
-            <inertia ixx="0.015" ixy="0" ixz="0" iyy="0.015" iyz="0" izz="0.03"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><box size="0.2 0.2 0.1"/></geometry>
+        </collision>
     </link>
 
     <!-- torso, yaw -->
@@ -27,9 +39,15 @@
         <child link="torso"/>
         <origin xyz="0 0 0.05" rpy="0 0 0"/>
         <axis xyz="0 0 1"/>
-        <limit lower="-3.14" upper="3.14" effort="10" velocity="2"/>
+        <limit lower="-3.14" upper="3.14" effort="100" velocity="10"/>
     </joint>
+
     <link name="torso">
+        <inertial>
+            <origin xyz="0 0 0.015" rpy="0 0 0"/>
+            <mass value="0.9"/>
+            <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.002"/>
+        </inertial>
         <visual>
             <origin xyz="0 0 0.06" rpy="0 0 0"/>
             <geometry><box size="0.06 0.03 0.12"/></geometry>
@@ -40,11 +58,14 @@
             <geometry><cylinder radius="0.06" length="0.06"/></geometry>
             <material name="dark_gray"/>
         </visual>
-        <inertial>
-            <origin xyz="0 0 0.0145" rpy="0 0 0"/>
-            <mass value="0.9"/>
-            <inertia ixx="0.0015" ixy="0" ixz="0" iyy="0.0015" iyz="0" izz="0.0015"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry><box size="0.06 0.03 0.12"/></geometry>
+        </collision>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><cylinder radius="0.06" length="0.06"/></geometry>
+        </collision>
     </link>
 
     <!-- shoulder, pitch -->
@@ -53,9 +74,15 @@
         <child link="shoulder"/>
         <origin xyz="0 0 0.12" rpy="0 0 0"/>
         <axis xyz="0 -1 0"/>
-        <limit lower="-2.1" upper="2.1" effort="10" velocity="2"/>
+        <limit lower="-2.1" upper="2.1" effort="100" velocity="10"/>
     </joint>
+
     <link name="shoulder">
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
+        </inertial>
         <visual>
             <origin xyz="0 0 0.12" rpy="0 0 0"/>
             <geometry><box size="0.04 0.02 0.24"/></geometry>
@@ -66,11 +93,10 @@
             <geometry><cylinder radius="0.04" length="0.032"/></geometry>
             <material name="dark_gray"/>
         </visual>
-        <inertial>
-            <origin xyz="0 0 0.06" rpy="0 0 0"/>
-            <mass value="1.0"/>
-            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.04" length="0.032"/></geometry>
+        </collision>
     </link>
 
     <!-- upper arm, pitch -->
@@ -79,9 +105,15 @@
         <child link="upper_arm"/>
         <origin xyz="0 0 0.24" rpy="0 0 0"/>
         <axis xyz="0 -1 0"/>
-        <limit lower="-2.1" upper="2.1" effort="10" velocity="2"/>
+        <limit lower="-2.1" upper="2.1" effort="100" velocity="10"/>
     </joint>
+
     <link name="upper_arm">
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
+        </inertial>
         <visual>
             <origin xyz="0 0 0.12" rpy="0 0 0"/>
             <geometry><box size="0.04 0.02 0.24"/></geometry>
@@ -92,11 +124,10 @@
             <geometry><cylinder radius="0.04" length="0.032"/></geometry>
             <material name="dark_gray"/>
         </visual>
-        <inertial>
-        <origin xyz="0 0 0.06" rpy="0 0 0"/>
-            <mass value="1.0"/>
-            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.04" length="0.032"/></geometry>
+        </collision>
     </link>
 
     <!-- forearm, pitch -->
@@ -105,9 +136,15 @@
         <child link="forearm"/>
         <origin xyz="0 0 0.24" rpy="0 0 0"/>
         <axis xyz="0 -1 0"/>
-        <limit lower="-2.1" upper="2.1" effort="10" velocity="2"/>
+        <limit lower="-2.1" upper="2.1" effort="100" velocity="10"/>
     </joint>
+
     <link name="forearm">
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
+        </inertial>
         <visual>
             <origin xyz="0 0 0.12" rpy="0 0 0"/>
             <geometry><box size="0.04 0.02 0.24"/></geometry>
@@ -118,27 +155,40 @@
             <geometry><cylinder radius="0.04" length="0.032"/></geometry>
             <material name="dark_gray"/>
         </visual>
-        <inertial>
-            <origin xyz="0 0 0.06" rpy="0 0 0"/>
-            <mass value="1.0"/>
-            <inertia ixx="0.006" ixy="0" ixz="0" iyy="0.006" iyz="0" izz="0.006"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.04" length="0.032"/></geometry>
+        </collision>
     </link>
 
-    <!-- hand -->
-    <joint name="forearm_to_hand" type="fixed">
+    <!-- hand, yaw -->
+    <joint name="hand_link" type="revolute">
         <parent link="forearm"/>
         <child link="hand"/>
         <origin xyz="0 0 0.24" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.14" upper="3.14" effort="100" velocity="10"/>
     </joint>
+
     <link name="hand">
+        <inertial>
+            <origin xyz="0 0 0.025" rpy="0 0 0"/>
+            <mass value="1.0"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
         <visual>
-            <geometry><sphere radius="0.05"/></geometry>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <geometry><box size="0.01 0.06 0.1"/></geometry>
+            <material name="light_gray"/>
+        </visual>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry><cylinder radius="0.035" length="0.016"/></geometry>
             <material name="dark_gray"/>
         </visual>
-        <inertial>
-            <mass value="0.5"/>
-            <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0005"/>
-        </inertial>
+        <collision>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <geometry><box size="0.01 0.06 0.1"/></geometry>
+        </collision>
     </link>
 </robot>

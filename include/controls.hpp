@@ -34,6 +34,6 @@ void playPose(Pose pose){
 void moveJoint(int joint, double dir){
     //dir: left -1, right 1
     mjData* data = getData();
-    const double step = dir*0.25; //3.14/20; // sesuai unit dlm range actuator, in this case 3.14
+    const double step = dir*0.1; //sesuain sm unit ctrlrange actuator
     d->ctrl[joint] += step;
 }

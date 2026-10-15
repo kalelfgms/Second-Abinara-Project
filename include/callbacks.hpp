@@ -6,6 +6,10 @@
 static bool  button_left = false, button_middle = false, button_right = false;
 static double lastx = 0, lasty = 0;
 
+void glfw_error_callback(int code, const char* desc){
+    printf("error bruh");
+}
+
 static void mouse_button_callback(GLFWwindow* window, int button, int act, int /*mods*/) {
     if (button == GLFW_MOUSE_BUTTON_LEFT)   button_left   = (act == GLFW_PRESS) ? true : (act == GLFW_RELEASE ? false : button_left);
     if (button == GLFW_MOUSE_BUTTON_MIDDLE) button_middle = (act == GLFW_PRESS) ? true : (act == GLFW_RELEASE ? false : button_middle);
@@ -72,6 +76,11 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int m
             moveJoint(3, -1); cout<<"forearm yaw: " << d->ctrl[3] << endl; break;
         case GLFW_KEY_W: 
             moveJoint(3, 1); cout<<"forearm yaw: " << d->ctrl[3] << endl; break;
+        //hand yaw
+        case GLFW_KEY_J: 
+            moveJoint(4, -1); cout<<"hand yaw: " << d->ctrl[4] << endl; break;
+        case GLFW_KEY_K: 
+            moveJoint(4, 1); cout<<"hand yaw: " << d->ctrl[4] << endl; break;
 
         //posing
         default:
@@ -80,8 +89,4 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int m
             };
             break;
     }
-}
-
-void glfw_error_callback(int code, const char* desc){
-    printf("error bruh");
 }
