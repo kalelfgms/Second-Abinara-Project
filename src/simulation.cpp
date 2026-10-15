@@ -9,56 +9,8 @@
 
 using namespace std;
 
-mjModel* m = nullptr;
-mjData* d = nullptr;
-mjvScene scn;
-mjvCamera cam;
-mjvOption opt;
-mjrContext con;
-
-vector<double> q = {};
-
-void mouse_button_callback(GLFWwindow* window, int button, int act, int mods){
-    //button_left = (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) = GLFW_PRESS);
-}
-//make set Pose, make preset poses mapped to keyssz
-void startPos(){
-    //radians
-    d->ctrl[0] = 0;
-    d->ctrl[1] = -1;
-    d->ctrl[2] = 2;
-    d->ctrl[3] = 1.4;
-}
-
-void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int mods){
-    if (act != GLFW_PRESS) return;
-
-    const double step = 0.25;//3.14/20; // sesuai unit dlm range actuator, in this case 3.14
-    switch (key){
-        //torso yaw
-        case GLFW_KEY_N: d->ctrl[0] -= step; cout<<"torso yaw: " << d->ctrl[0] << endl; break;
-        case GLFW_KEY_M: d->ctrl[0] += step; cout<<"torso yaw: " << d->ctrl[0] << endl; break;
-        //shoulder pitch
-        case GLFW_KEY_Z: d->ctrl[1] -= step; cout<<"shoulder pitch yaw: " << d->ctrl[1] << endl; break;
-        case GLFW_KEY_X: d->ctrl[1] += step; cout<<"shoulder pitch yaw: " << d->ctrl[1] << endl; break;
-        //upper arm pitch
-        case GLFW_KEY_A: d->ctrl[2] -= step; cout<<"upper arm yaw: " << d->ctrl[2] << endl; break;
-        case GLFW_KEY_S: d->ctrl[2] += step; cout<<"upper arm yaw: " << d->ctrl[2] << endl; break;
-        //forearm pitch
-        case GLFW_KEY_Q: d->ctrl[3] -= step; cout<<"forearm yaw: " << d->ctrl[3] << endl; break;
-        case GLFW_KEY_W: d->ctrl[3] += step; cout<<"forearm yaw: " << d->ctrl[3] << endl; break;
-        //reset
-        case GLFW_KEY_SPACE:
-            cout<<"resetting position"<<endl;
-            //mj_resetData(m, d);
-            startPos();
-            q = {0, 0, 0, 0}; break;
-    }
-}
-
-void glfw_error_callback(int code, const char* desc){
-    printf("error bruh");
-}
+#include "../include/callbacks.hpp"
+#include "simulation.hpp"
 
 int main(){
     char error[1000] = "Couldn't load model";
@@ -66,7 +18,6 @@ int main(){
     if (!m) {
         fprintf(stderr, "%s\n", error); return 1;
     }
-
     d = mj_makeData(m);
 
     glfwSetErrorCallback(glfw_error_callback);
@@ -75,17 +26,24 @@ int main(){
         return 1;
     }
 
+    //biar nyala windownya
     GLFWwindow* window = glfwCreateWindow(900, 1200, "arm sim", nullptr, nullptr);
     if (!window){
         fprintf(stderr, "glfwCreateWindow() gagal\n");
         glfwTerminate(); return 1;
     }
-
     glfwMakeContextCurrent(window);
-    //glfwSwapInterval(1);
 
+    opt.flags[mjVIS_CONTACTPOINT] = 1;
+    opt.flags[mjVIS_CONTACTFORCE] = 1;
+
+    //callbacks
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, cursor_pos_callback);
+    glfwSetScrollCallback(window, scroll_callback);
     glfwSetKeyCallback(window, keyboard_callback);
-
+    
+    //scene setup
     mjv_defaultCamera(&cam);
     mjv_defaultOption(&opt);
     mjv_defaultScene(&scn);
@@ -94,19 +52,18 @@ int main(){
     mjv_makeScene(m, &scn, 2000);
     mjr_makeContext(m, &con, mjFONTSCALE_100);
 
-    cam.type = mjCAMERA_FREE;
+    //cam setup
+    cam.orthographic = 1;
     cam.distance = 1.8;
     cam.azimuth = 45;
     cam.elevation = -25;
 
-    startPos();
+    //starting pose
+    setPose(Pose::Ready);
 
+    //sim loop
     while (!glfwWindowShouldClose(window)){
         mj_step(m, d);
-        
-        //printf("Joint angles: "); for (double a : q) printf("%.3f ", a*180.0/M_PI); printf("\n");
-    
-
 
         mjrRect viewport = {0, 0, 0, 0};
         glfwGetFramebufferSize(window, &viewport.width, &viewport.height);
@@ -118,6 +75,7 @@ int main(){
         glfwPollEvents();
     }
 
+    //beres beres
     mjv_freeScene(&scn);
     mjr_freeContext(&con);
     mj_deleteData(d);

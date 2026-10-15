@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+/home/kalelgms/Desktop/Projects/second_abinara_project/include/callbacks.hpp
+mujoco/mujoco.h
+-
+controls.hpp
+/home/kalelgms/Desktop/Projects/second_abinara_project/include/controls.hpp
+../src/simulation.hpp
+/home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.hpp
+
+/home/kalelgms/Desktop/Projects/second_abinara_project/include/controls.hpp
+mujoco/mujoco.h
+-
+../src/simulation.hpp
+/home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.hpp
+
 /home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.cpp
 iostream
 -
@@ -20,5 +34,13 @@ string
 vector
 -
 algorithm
+-
+../include/callbacks.hpp
+/home/kalelgms/Desktop/Projects/second_abinara_project/include/callbacks.hpp
+simulation.hpp
+/home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.hpp
+
+/home/kalelgms/Desktop/Projects/second_abinara_project/src/simulation.hpp
+mujoco/mujoco.h
 -
 

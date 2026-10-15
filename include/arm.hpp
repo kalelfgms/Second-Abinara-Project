@@ -6,7 +6,11 @@
 
 class Arm {
     private:
+
     public:
+    mjModel* m = nullptr;
+    mjData* d = nullptr;
+
 };
 
 #endif
