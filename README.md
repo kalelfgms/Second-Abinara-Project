@@ -1,1 +1,45 @@
-hello sir
+# Robot Arm Simulation
+
+Program untuk simulasi robot arm dari file .xml dan pergerakkannya dengan input, menggunakan Mujoco dan GLFW3.
+
+Program dibagi jadi beberapa file utama:
+1. simulation.cpp: file yang run simulasi, termasuk loop simulasi
+2. simulation.hpp: include library yang dibutuhkan untuksimulasi dan variable awal simulasi
+3. arm.urdf: file .urdf robot arm
+4. arm.xml: file .xml robot arm
+5. controls.hpp: file berisi fungsi untuk pergerakkan robot
+6. callback.hpp: file berisi callback input saat simulasi run
+7. CMakelists.txt: file cmake untuk build program
+
+## Control System
+Robot arm ini memiliki 4 joint: 
+| Joint | Axis | Connection | Range |
+| :--- | :--- | :--- | :---: |
+| Torso | Z (Yaw) | Base to Torso | -360° to 360° |
+| Shoulder | Y (Pitch) | Torso to Shoulder | -120° to 120° |
+| Upper arm | Y (Pitch) | Shoulder to Upper arm | -120° to 120° |
+| Forearm | Y (Pitch) | Upper arm to Forearm | -120° to 120° |
+
+### Key Binds
+#### Joints
+| Joint | Left | Right |
+| :--- | :---: | :---: |
+| Torso | N | M |
+| Shoulder | Z | X |
+| Upper Arm | A | S |
+| Forearm | Q | W |
+
+#### Poses
+
+| Pose | Key |
+| :--- | :---: |
+| Default Pose | Space |
+| Zig Zag | C |
+| Straight Up | V |
+| Max Length | B |
+
+## Documentation
+[Google Drive KPP 2 Internship Abinara-1](https://drive.google.com/drive/folders/1mgvDs7uPf0qPjJeyyshWKm6b_AfDDRkG?usp=sharing)
+
+### Screenshots
+![Screenshot of Simulation](simulation.png)
