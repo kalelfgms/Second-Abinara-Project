@@ -48,14 +48,30 @@ static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos) {
 static void scroll_callback(GLFWwindow* window, double /*xoffset*/, double yoffset) {
     scn = getScene(); cam = getCam();
     if (!m) return;
-    mjv_moveCamera(m, mjMOUSE_ZOOM, 0, -0.05 * yoffset, &scn, &cam);
+    mjv_moveCamera(m, mjMOUSE_ZOOM, 0, 0.1 * yoffset, &scn, &cam); //-.05 tadinya
 }
 
+int currentKey = 0;
+
 void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int mods){
+    if (act == GLFW_RELEASE){
+        currentKey = 0;
+    }
     if (act != GLFW_PRESS) return;
 
-    //masalah rn: kalo mentok rangenya (-2 or 2), nambahin value ctrl ga bakal gerakin..  
+    currentKey = key;
     switch (key){
+        //posing
+        default:
+            for (auto& p : PoseList) {
+                if (key == p->getKey()) playPose(*p);
+            };
+            break;
+    }
+}
+
+void keyHeld_update(mjData* d){
+    switch (currentKey){
         //torso yaw
         case GLFW_KEY_N:
             moveJoint(0, -1); cout<<"torso yaw: " << d->ctrl[0] << endl; break;
@@ -81,12 +97,9 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int m
             moveJoint(4, -1); cout<<"hand yaw: " << d->ctrl[4] << endl; break;
         case GLFW_KEY_K: 
             moveJoint(4, 1); cout<<"hand yaw: " << d->ctrl[4] << endl; break;
-
-        //posing
+    
         default:
-            for (auto& p : PoseList) {
-                if (key == p->getKey()) playPose(*p);
-            };
+            
             break;
     }
 }

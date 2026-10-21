@@ -34,6 +34,13 @@ void playPose(Pose pose){
 void moveJoint(int joint, double dir){
     //dir: left -1, right 1
     mjData* data = getData();
-    const double step = dir*0.1; //sesuain sm unit ctrlrange actuator
-    d->ctrl[joint] += step;
+    const double step = dir*1; 
+    double ctrlMin, ctrlMax, ctrlCurrent;
+    ctrlMin = m->actuator_ctrlrange[2*joint];
+    ctrlMax = m->actuator_ctrlrange[2*joint+1];
+    //d->ctrl[joint] += step;
+    const double vmax = 10;
+    d->ctrl[joint] = clamp(
+        d->ctrl[joint] += step * vmax * m->opt.timestep,
+        ctrlMin, ctrlMax);
 }

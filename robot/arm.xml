@@ -71,10 +71,10 @@
     </worldbody>
 
     <actuator>
-        <position name="torso_act"     joint="torso_bodylink" kp="400" kv="40"   ctrlrange="-3.3 3.3"/>
-        <position name="shoulder_act"  joint="shoulder_link"  kp="400" kv="40"   ctrlrange="-2.1 2.1"/>
-        <position name="upper_arm_act" joint="upper_arm_link" kp="150" kv="15"   ctrlrange="-2.1 2.1"/>
-        <position name="forearm_act"   joint="forearm_link"   kp="48"  kv="6.4"  ctrlrange="-2.1 2.1"/>
-        <position name="hand_act"      joint="hand_link"      kp="0.5" kv="0.03" ctrlrange="-3.3 3.3"/>
+        <position name="torso_act"     joint="torso_bodylink" kp="400" kv="40"   ctrlrange="-3.3 3.3" ctrllimited="auto"/>
+        <position name="shoulder_act"  joint="shoulder_link"  kp="400" kv="40"   ctrlrange="-2.1 2.1" ctrllimited="auto"/>
+        <position name="upper_arm_act" joint="upper_arm_link" kp="150" kv="15"   ctrlrange="-2.1 2.1" ctrllimited="auto"/>
+        <position name="forearm_act"   joint="forearm_link"   kp="48"  kv="6.4"  ctrlrange="-2.1 2.1" ctrllimited="auto"/>
+        <position name="hand_act"      joint="hand_link"      kp="0.5" kv="0.03" ctrlrange="-3.3 3.3" ctrllimited="auto"/>
     </actuator>
 </mujoco>

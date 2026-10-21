@@ -73,6 +73,9 @@ int main(){
     //sim loop
     while (!glfwWindowShouldClose(window)){
         mj_step(m, d);
+        if (currentKey != 0){
+            keyHeld_update(d);
+        }
 
         mjrRect viewport = {0, 0, 0, 0};
         glfwGetFramebufferSize(window, &viewport.width, &viewport.height);
