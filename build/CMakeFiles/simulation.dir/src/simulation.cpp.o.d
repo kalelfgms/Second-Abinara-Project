@@ -219,5 +219,4 @@ CMakeFiles/simulation.dir/src/simulation.cpp.o: \
  /usr/include/c++/13/cstdint /usr/include/c++/13/ctime \
  /usr/include/c++/13/bits/parse_numbers.h /usr/include/c++/13/chrono \
  /home/kalelgms/Desktop/Projects/second_abinara_project/src/../include/callbacks.hpp \
- /home/kalelgms/Desktop/Projects/second_abinara_project/src/../initialize/poses.hpp \
- /home/kalelgms/Desktop/Projects/second_abinara_project/src/../initialize/animations.hpp
+ /home/kalelgms/Desktop/Projects/second_abinara_project/src/../initialize/poses.hpp
