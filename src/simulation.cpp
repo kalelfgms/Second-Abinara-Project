@@ -12,7 +12,6 @@
 #include "../include/callbacks.hpp"
 #include "simulation.hpp"
 #include "../initialize/poses.hpp"
-#include "../initialize/animations.hpp"
 
 int main(){
     char error[1000] = "Couldn't load model";
@@ -60,7 +59,6 @@ int main(){
 
     //create poses
     initializePoses();
-    initializeAnims();
 
     //starting pose
     playPose(*PoseList[0]); // hrs inget index apa utk play pose tertentu, 0 itu startpos
@@ -85,11 +83,6 @@ int main(){
 
         if (STATE == "InverseK"){
             //solve ik here
-        }else if (STATE == "Animated"){
-            //play anims here, get keyframes from currently played anim
-            //getanim
-            
-            
         }
 
         mjrRect viewport = {0, 0, 0, 0};

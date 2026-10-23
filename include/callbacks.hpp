@@ -56,7 +56,6 @@ static void scroll_callback(GLFWwindow* window, double /*xoffset*/, double yoffs
 
 //key yg sdg dipencet
 int currentKey = 0;
-Animation* activeAnim = nullptr;
 
 void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int mods){
     if (act == GLFW_RELEASE){
@@ -68,12 +67,6 @@ void keyboard_callback(GLFWwindow* window, int key, int scancode, int act, int m
 
     for (auto& p : PoseList) {
         if (key == p->getKey()) playPose(*p);
-    };
-
-    for (auto& p : AnimList) {
-        if (key == p->getKey()){
-            if (activeAnim)->stop()
-        };
     };
 }
 

@@ -59,44 +59,5 @@ void playPose(Pose pose){
     };
 };
 
-//ANIMATION
-class Animation {
-    private:
-        //store array of pLists
-        string name;
-        vector<pList> keyframes = {};
-        int key = 0;
-
-    public:
-        Animation(string n, int k, vector<pList> keyf): name(n), key(k), keyframes(keyf) {};
-
-        vector<pList> getAnimation(){ return keyframes; };
-
-        int getKey(){ return key; };
-        string getName(){ return name; };
-};
-
-vector<unique_ptr<Animation>> AnimList;
-
-void playAnimation(Animation anim){
-    mjData* data = getData();
-    vector<pList> keyframes = anim.getAnimation();
-
-    //set state and statename
-    const int keyframe_delay = 2000; // ms
-    setBotState(botState::Animated, anim.getName());
-
-    //while (STATE == "Animated"){
-        for (int k = 0; k < keyframes.size(); k++){ //loop through keyframes list
-            
-            pList curr_keyfr = keyframes[k]; //get curret keyframe
-            for (int i = 0; i < 5; i++){//set pose
-                data->ctrl[i] = curr_keyfr[i];
-            }
-            
-        };
-    
-};
-
 //IK
 
