@@ -213,4 +213,11 @@ CMakeFiles/simulation.dir/src/simulation.cpp.o: \
  /home/kalelgms/Desktop/Projects/second_abinara_project/src/../include/controls.hpp \
  /home/kalelgms/Desktop/Projects/second_abinara_project/src/../include/../src/simulation.hpp \
  /usr/include/c++/13/array /usr/include/c++/13/compare \
- /home/kalelgms/Desktop/Projects/second_abinara_project/src/../include/callbacks.hpp
+ /usr/include/c++/13/thread /usr/include/c++/13/bits/std_thread.h \
+ /usr/include/c++/13/bits/this_thread_sleep.h \
+ /usr/include/c++/13/bits/chrono.h /usr/include/c++/13/ratio \
+ /usr/include/c++/13/cstdint /usr/include/c++/13/ctime \
+ /usr/include/c++/13/bits/parse_numbers.h /usr/include/c++/13/chrono \
+ /home/kalelgms/Desktop/Projects/second_abinara_project/src/../include/callbacks.hpp \
+ /home/kalelgms/Desktop/Projects/second_abinara_project/src/../initialize/poses.hpp \
+ /home/kalelgms/Desktop/Projects/second_abinara_project/src/../initialize/animations.hpp

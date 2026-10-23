@@ -11,10 +11,8 @@
 #include "../include/controls.hpp"
 #include "../include/callbacks.hpp"
 #include "simulation.hpp"
-
-void addPose(vector<unique_ptr<Pose>>& PoseList, string n, int k, pList ori) {
-    PoseList.push_back(make_unique<Pose>(n, k, ori));
-}
+#include "../initialize/poses.hpp"
+#include "../initialize/animations.hpp"
 
 int main(){
     char error[1000] = "Couldn't load model";
@@ -54,27 +52,44 @@ int main(){
 
     //cam setup
     mjv_defaultCamera(&cam);
-    cam.lookat[2] = 0.2; // cam origin up sdikit
+    cam.lookat[2] = 0.35; // cam origin up sdikit
     cam.orthographic = 1;
     cam.distance = 1.8;
     cam.azimuth = 45;
     cam.elevation = -25;
 
     //create poses
-    addPose(PoseList, "Default", GLFW_KEY_SPACE, pList{0, -1, 2, 1.5});
-    addPose(PoseList, "ZigZag", GLFW_KEY_C, {0, -1, 2, -2});
-    addPose(PoseList, "Zero", GLFW_KEY_V, {0, 0.05, -0.05, 0.05});
-    addPose(PoseList, "MaxLength", GLFW_KEY_B, {0, -1.5, -1, 1});
-    //harus inget index tiap pose Class di file lain... kalo mau manually set position sih
+    initializePoses();
+    initializeAnims();
 
     //starting pose
-    playPose(*PoseList[0]);
+    playPose(*PoseList[0]); // hrs inget index apa utk play pose tertentu, 0 itu startpos
+
+    //IK
+    //dq = Jinv*dx
+    //q -> q+dq or q += dq
+    //ctrl = q
+
+    //Jinv, better to use in a diff lib, steps:
+    //find det of J -> determinant of
+
 
     //sim loop
     while (!glfwWindowShouldClose(window)){
         mj_step(m, d);
         if (currentKey != 0){
             keyHeld_update(d);
+        }
+
+        //displayBotData();
+
+        if (STATE == "InverseK"){
+            //solve ik here
+        }else if (STATE == "Animated"){
+            //play anims here, get keyframes from currently played anim
+            //getanim
+            
+            
         }
 
         mjrRect viewport = {0, 0, 0, 0};
@@ -89,7 +104,7 @@ int main(){
 
     //beres beres
     mjv_freeScene(&scn);
-    mjr_freeContext(&con);
+    mjr_freeContext(&con); 
     mj_deleteData(d);
     mj_deleteModel(m);
     glfwTerminate();

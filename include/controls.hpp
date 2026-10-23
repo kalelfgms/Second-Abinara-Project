@@ -5,31 +5,11 @@
 //make set Pose, make preset poses mapped to keyssz
 //enum Poses {Zero, Ready, MaxLength, ZigZag};
 
-class Pose {
-    private:
-        //store poses in array
-        string name;
-        pList orients = {0, 0, 0, 0};
-        int key = 0;
-
-    public:
-        Pose(string n, int k, pList ori): name(n), key(k), orients(ori) {};
-
-        pList getPose(){ return orients; };
-
-        int getKey(){ return key; };
-};
-
-vector<unique_ptr<Pose>> PoseList;
-
-void playPose(Pose pose){
-    mjData* data = getData();
-    pList orients = pose.getPose();
-
-    for (int i = 0; i < 4; i++){
-        data->ctrl[i] = orients[i];
-    };
-};
+//movement class
+//pose and animation children, pose can be animation but with 1 keyframe, different method to play each thing
+//make animation class use IK instead of preset keyframes, or js have both
+//let IK make a set of end keyframes based on world position, those positions jd keyframe 
+//ADD INVERSE KINEMATICS!!!!!!!!!!!!!!!!! (for kpp)
 
 void moveJoint(int joint, double dir){
     //dir: left -1, right 1
@@ -38,9 +18,85 @@ void moveJoint(int joint, double dir){
     double ctrlMin, ctrlMax, ctrlCurrent;
     ctrlMin = m->actuator_ctrlrange[2*joint];
     ctrlMax = m->actuator_ctrlrange[2*joint+1];
-    //d->ctrl[joint] += step;
-    const double vmax = 10;
+    
+    //set state an statename
+    setBotState(botState::Teleop, "-");
+
+    const double vmax = 6; // max speed, biar gk pencet sekali tbtb sampe ujung
     d->ctrl[joint] = clamp(
         d->ctrl[joint] += step * vmax * m->opt.timestep,
         ctrlMin, ctrlMax);
 }
+
+//POSE
+class Pose {
+    private:
+        //store poses in array
+        string name;
+        pList orients = {0, 0, 0, 0, 0};
+        int key = 0;
+
+    public:
+        Pose(string n, int k, pList ori): name(n), key(k), orients(ori) {};
+
+        pList getPose(){ return orients; };
+
+        int getKey(){ return key; };
+        string getName(){ return name; };
+};
+
+vector<unique_ptr<Pose>> PoseList;
+
+void playPose(Pose pose){
+    mjData* data = getData();
+    pList orients = pose.getPose();
+
+    //set state and statename
+    setBotState(botState::Posed, pose.getName());
+
+    for (int i = 0; i < 5; i++){
+        data->ctrl[i] = orients[i];
+    };
+};
+
+//ANIMATION
+class Animation {
+    private:
+        //store array of pLists
+        string name;
+        vector<pList> keyframes = {};
+        int key = 0;
+
+    public:
+        Animation(string n, int k, vector<pList> keyf): name(n), key(k), keyframes(keyf) {};
+
+        vector<pList> getAnimation(){ return keyframes; };
+
+        int getKey(){ return key; };
+        string getName(){ return name; };
+};
+
+vector<unique_ptr<Animation>> AnimList;
+
+void playAnimation(Animation anim){
+    mjData* data = getData();
+    vector<pList> keyframes = anim.getAnimation();
+
+    //set state and statename
+    const int keyframe_delay = 2000; // ms
+    setBotState(botState::Animated, anim.getName());
+
+    //while (STATE == "Animated"){
+        for (int k = 0; k < keyframes.size(); k++){ //loop through keyframes list
+            
+            pList curr_keyfr = keyframes[k]; //get curret keyframe
+            for (int i = 0; i < 5; i++){//set pose
+                data->ctrl[i] = curr_keyfr[i];
+            }
+            
+        };
+    
+};
+
+//IK
+
